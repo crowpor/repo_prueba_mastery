@@ -1,0 +1,30 @@
+# WireGuard Configuration Files
+# Estos archivos contienen información sensible (claves privadas)
+*.conf
+
+# Excepto el archivo de ejemplo
+!wg0.conf.example
+
+# Claves de WireGuard
+privatekey
+publickey
+presharedkey
+
+# Scripts generados temporalmente
+vpn-up.sh
+vpn-down.sh
+
+# Archivos de log
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
+*~
+.*.swp
+.DS_Store
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.iml
