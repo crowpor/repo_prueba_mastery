@@ -1,0 +1,121 @@
+# Plantilla de Configuración WireGuard
+# 
+# Este es un archivo de ejemplo. Reemplaza los valores con tu configuración real.
+# Guarda este archivo con extensión .conf (por ejemplo: wg0.conf)
+
+[Interface]
+# Tu clave privada de WireGuard
+# Generar con: wg genkey
+PrivateKey = REEMPLAZAR_CON_TU_CLAVE_PRIVADA
+
+# Dirección IP asignada a tu cliente en la VPN
+# Ejemplo: 10.0.0.2/24 o 192.168.100.2/24
+Address = 10.0.0.2/24
+
+# Servidores DNS a usar cuando la VPN esté activa
+# Ejemplos: 1.1.1.1, 8.8.8.8, 9.9.9.9
+DNS = 1.1.1.1, 8.8.8.8
+
+# (Opcional) MTU - Maximum Transmission Unit
+# Descomentar si tienes problemas de conectividad
+# MTU = 1420
+
+[Peer]
+# Clave pública del servidor VPN
+# Obtener del administrador del servidor VPN
+PublicKey = REEMPLAZAR_CON_CLAVE_PUBLICA_DEL_SERVIDOR
+
+# Clave precompartida (opcional, para seguridad adicional)
+# Generar con: wg genpsk
+# PresharedKey = REEMPLAZAR_CON_PSK_SI_SE_USA
+
+# Dirección y puerto del servidor VPN
+# Formato: dominio.com:puerto o IP:puerto
+Endpoint = vpn.ejemplo.com:51820
+
+# Rangos de IP que se enrutarán a través de la VPN
+# 0.0.0.0/0 = Todo el tráfico (VPN completa)
+# 10.0.0.0/24 = Solo tráfico de red local VPN
+AllowedIPs = 0.0.0.0/0, ::/0
+
+# Mantener la conexión activa (recomendado para NAT)
+# Envía un paquete cada 25 segundos para mantener la conexión
+PersistentKeepalive = 25
+
+# NOTAS IMPORTANTES:
+# ================
+# 
+# 1. SEGURIDAD:
+#    - Mantén tu clave privada (PrivateKey) segura y privada
+#    - Nunca compartas tu clave privada
+#    - Establece permisos restrictivos: chmod 600 archivo.conf
+#
+# 2. AllowedIPs:
+#    - 0.0.0.0/0, ::/0 : Enruta TODO el tráfico por la VPN
+#    - 10.0.0.0/24     : Solo enruta tráfico de red VPN específica
+#    - 192.168.1.0/24  : Solo enruta tráfico de subred específica
+#
+# 3. PersistentKeepalive:
+#    - Necesario si estás detrás de NAT
+#    - Valor típico: 25 segundos
+#    - Desactivar: comentar la línea o valor = 0
+#
+# 4. DNS:
+#    - DNS sobre VPN: usa DNS del servidor VPN
+#    - DNS local: comenta la línea DNS
+#
+# 5. Generar claves:
+#    # Generar par de claves (privada y pública)
+#    wg genkey | tee privatekey | wg pubkey > publickey
+#    
+#    # Generar clave precompartida
+#    wg genpsk > presharedkey
+
+# EJEMPLOS DE CONFIGURACIÓN:
+# =========================
+
+# Ejemplo 1: VPN completa (todo el tráfico)
+# ------------------------------------------
+# [Interface]
+# PrivateKey = yAnz5TF+lXXJte14tji3zlMNq+hd2rYUIgJBgB3fBmk=
+# Address = 10.0.0.2/24
+# DNS = 1.1.1.1
+# 
+# [Peer]
+# PublicKey = HIgo9xNzJMWLKASShiTqIybxZ0U3wGLiUeJ1PKf8ykw=
+# Endpoint = vpn.miserver.com:51820
+# AllowedIPs = 0.0.0.0/0, ::/0
+# PersistentKeepalive = 25
+
+# Ejemplo 2: VPN solo para red privada específica
+# ------------------------------------------------
+# [Interface]
+# PrivateKey = yAnz5TF+lXXJte14tji3zlMNq+hd2rYUIgJBgB3fBmk=
+# Address = 10.0.0.2/24
+# 
+# [Peer]
+# PublicKey = HIgo9xNzJMWLKASShiTqIybxZ0U3wGLiUeJ1PKf8ykw=
+# Endpoint = vpn.miserver.com:51820
+# AllowedIPs = 10.0.0.0/24, 192.168.1.0/24
+# PersistentKeepalive = 25
+
+# Ejemplo 3: Múltiples peers (conexión a varios servidores)
+# ----------------------------------------------------------
+# [Interface]
+# PrivateKey = yAnz5TF+lXXJte14tji3zlMNq+hd2rYUIgJBgB3fBmk=
+# Address = 10.0.0.2/24
+# DNS = 1.1.1.1
+# 
+# [Peer]
+# # Servidor VPN Principal
+# PublicKey = HIgo9xNzJMWLKASShiTqIybxZ0U3wGLiUeJ1PKf8ykw=
+# Endpoint = vpn1.miserver.com:51820
+# AllowedIPs = 10.0.0.0/24
+# PersistentKeepalive = 25
+# 
+# [Peer]
+# # Servidor VPN Secundario
+# PublicKey = xTIBA5rboUvnH4htodjb6e697QjLERt1NAB4mZqp8Dg=
+# Endpoint = vpn2.miserver.com:51820
+# AllowedIPs = 192.168.1.0/24
+# PersistentKeepalive = 25
