@@ -108,19 +108,19 @@ sudo ./wireguard-manager.sh import ./mi-vpn.conf
 
 ## ⚙️ Configuración Avanzada
 
-### Deshabilitar autoconexión (recomendado)
-```bash
-sudo ./wireguard-manager.sh autoconnect disable
-```
-
-Por defecto, la autoconexión ya está deshabilitada para mayor control.
-
 ### Habilitar autoconexión (VPN siempre activa)
 ```bash
 sudo ./wireguard-manager.sh autoconnect enable
 ```
 
 La VPN se conectará automáticamente al iniciar el sistema.
+
+### Deshabilitar autoconexión (más control)
+```bash
+sudo ./wireguard-manager.sh autoconnect disable
+```
+
+**Nota**: Por defecto, la autoconexión ya está deshabilitada cuando importas una configuración. Solo necesitas ejecutar este comando si previamente habilitaste la autoconexión y quieres desactivarla nuevamente.
 
 ## ❓ Problemas Comunes
 

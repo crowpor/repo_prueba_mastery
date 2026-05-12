@@ -100,10 +100,13 @@ import_wireguard_config() {
     fi
     
     # Importar configuración usando nmcli
-    nmcli connection import type wireguard file "$conf_file"
+    if ! nmcli connection import type wireguard file "$conf_file"; then
+        log_error "Fallo al importar la configuración. Verifica que el archivo sea válido y que WireGuard esté instalado correctamente."
+        exit 1
+    fi
     
     # Renombrar la conexión para tener un nombre consistente
-    local imported_name=$(basename "$conf_file" .conf)
+    local imported_name="$(basename "$conf_file" .conf)"
     if [ "$imported_name" != "$VPN_CONNECTION_NAME" ]; then
         nmcli connection modify "$imported_name" connection.id "$VPN_CONNECTION_NAME"
     fi
@@ -267,7 +270,7 @@ EOF
 }
 
 # Main
-if [ -z "${1:-}" ]; then
+if [ -z "$1" ]; then
     log_error "Debe especificar un comando"
     echo ""
     show_help
