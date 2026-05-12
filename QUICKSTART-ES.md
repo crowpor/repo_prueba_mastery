@@ -30,12 +30,12 @@ sudo ./wireguard-manager.sh create-symlinks
 
 ### Activar la VPN
 ```bash
-sudo vpn-up
+sudo vpn-cgts-up
 ```
 
 ### Desactivar la VPN
 ```bash
-sudo vpn-down
+sudo vpn-cgts-down
 ```
 
 ### Ver estado
@@ -54,7 +54,7 @@ sudo vpn-down
 | `status` | Muestra el estado actual | ❌ |
 | `autoconnect enable` | Habilita conexión automática | ✅ |
 | `autoconnect disable` | Deshabilita conexión automática | ✅ |
-| `create-symlinks` | Crea enlaces vpn-up y vpn-down | ✅ |
+| `create-symlinks` | Crea enlaces vpn-cgts-up y vpn-cgts-down | ✅ |
 | `help` | Muestra ayuda completa | ❌ |
 
 ## 🔧 Configuración Inicial Completa
@@ -74,9 +74,9 @@ sudo ./wireguard-manager.sh import ./mi-vpn.conf
 sudo ./wireguard-manager.sh create-symlinks
 
 # 5. Probar la conexión
-sudo vpn-up
+sudo vpn-cgts-up
 ./wireguard-manager.sh status
-sudo vpn-down
+sudo vpn-cgts-down
 ```
 
 ## 📝 Crear tu Archivo de Configuración
@@ -120,7 +120,7 @@ La VPN se conectará automáticamente al iniciar el sistema.
 sudo ./wireguard-manager.sh autoconnect disable
 ```
 
-**Nota**: Por defecto, la autoconexión ya está deshabilitada cuando importas una configuración. Solo necesitas ejecutar este comando si previamente habilitaste la autoconexión y quieres desactivarla nuevamente.
+**Nota**: Por defecto, la autoconexión ya está deshabilitada cuando importas una configuración. Solo necesitas ejecutar este comando si previamente habilitaste la autoconexión y quieres desactivarla.
 
 ## ❓ Problemas Comunes
 
