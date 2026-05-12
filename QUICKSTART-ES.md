@@ -8,8 +8,8 @@
 git clone https://github.com/crowpor/repo_prueba_mastery.git
 cd repo_prueba_mastery
 
-# El script ya tiene permisos de ejecución
-# Si no: chmod +x wireguard-manager.sh
+# Dar permisos de ejecución al script
+chmod +x wireguard-manager.sh
 ```
 
 ### Paso 2: Instalar WireGuard

@@ -179,10 +179,10 @@ toggle_autoconnect() {
         exit 1
     fi
     
-    if [ "$action" == "enable" ]; then
+    if [ "$action" = "enable" ]; then
         nmcli connection modify "$VPN_CONNECTION_NAME" connection.autoconnect yes
         log_info "Autoconexión habilitada"
-    elif [ "$action" == "disable" ]; then
+    elif [ "$action" = "disable" ]; then
         nmcli connection modify "$VPN_CONNECTION_NAME" connection.autoconnect no
         log_info "Autoconexión deshabilitada"
     else
@@ -267,7 +267,14 @@ EOF
 }
 
 # Main
-case "${1:-}" in
+if [ -z "${1:-}" ]; then
+    log_error "Debe especificar un comando"
+    echo ""
+    show_help
+    exit 1
+fi
+
+case "$1" in
     install)
         check_root
         install_wireguard
@@ -299,7 +306,7 @@ case "${1:-}" in
         show_help
         ;;
     *)
-        log_error "Comando no válido: ${1:-}"
+        log_error "Comando no válido: $1"
         echo ""
         show_help
         exit 1
