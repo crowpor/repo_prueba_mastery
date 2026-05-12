@@ -50,7 +50,7 @@ sudo ./wireguard-manager.sh import /ruta/a/tu/archivo.conf
 sudo ./wireguard-manager.sh create-symlinks
 ```
 
-Esto crea los comandos globales `vpn-up` y `vpn-down`.
+Esto crea los comandos globales `vpn-cgts-up` y `vpn-cgts-down`.
 
 ## Uso
 
@@ -91,10 +91,10 @@ Una vez creados los enlaces simbólicos, puedes usar comandos más cortos desde 
 
 ```bash
 # Activar VPN
-sudo vpn-up
+sudo vpn-cgts-up
 
 # Desactivar VPN
-sudo vpn-down
+sudo vpn-cgts-down
 ```
 
 ## Ejemplo de Archivo de Configuración WireGuard
@@ -129,20 +129,20 @@ sudo ./wireguard-manager.sh import ~/mi-vpn.conf
 sudo ./wireguard-manager.sh create-symlinks
 
 # 4. Activar la VPN
-sudo vpn-up
+sudo vpn-cgts-up
 ```
 
 ### Uso diario
 
 ```bash
 # Conectar a la VPN
-sudo vpn-up
+sudo vpn-cgts-up
 
 # Verificar estado
 ./wireguard-manager.sh status
 
 # Desconectar de la VPN
-sudo vpn-down
+sudo vpn-cgts-down
 ```
 
 ## Gestión de Autoconexión
@@ -211,14 +211,14 @@ Después de la instalación completa:
 
 ```
 repo_prueba_mastery/
-├── wireguard-manager.sh    # Script principal
-├── vpn-up.sh              # Script para activar VPN (creado por create-symlinks)
-├── vpn-down.sh            # Script para desactivar VPN (creado por create-symlinks)
-└── README-WIREGUARD.md    # Esta documentación
+├── wireguard-manager.sh       # Script principal
+├── vpn-cgts-up.sh             # Script para activar VPN (creado por create-symlinks)
+├── vpn-cgts-down.sh           # Script para desactivar VPN (creado por create-symlinks)
+└── README-WIREGUARD.md        # Esta documentación
 
 Enlaces simbólicos en /usr/local/bin/:
-├── vpn-up -> /ruta/completa/a/vpn-up.sh
-└── vpn-down -> /ruta/completa/a/vpn-down.sh
+├── vpn-cgts-up -> /ruta/completa/a/vpn-cgts-up.sh
+└── vpn-cgts-down -> /ruta/completa/a/vpn-cgts-down.sh
 ```
 
 ## Características de Seguridad
@@ -238,8 +238,8 @@ sudo nmcli connection delete wireguard-vpn
 Para eliminar los enlaces simbólicos:
 
 ```bash
-sudo rm /usr/local/bin/vpn-up
-sudo rm /usr/local/bin/vpn-down
+sudo rm /usr/local/bin/vpn-cgts-up
+sudo rm /usr/local/bin/vpn-cgts-down
 ```
 
 Para desinstalar WireGuard (Ubuntu/Debian):
