@@ -199,7 +199,7 @@ create_symlinks() {
     log_info "Creando enlaces simbólicos..."
     
     # Crear scripts individuales para up y down
-    cat > "${SCRIPT_DIR}/vpn-up.sh" << 'EOF'
+    cat > "${SCRIPT_DIR}/vpn-cgts-up.sh" << 'EOF'
 #!/bin/bash
 VPN_CONNECTION_NAME="wireguard-vpn"
 if [ "$EUID" -ne 0 ]; then
@@ -210,7 +210,7 @@ nmcli connection up "$VPN_CONNECTION_NAME"
 echo "VPN activada"
 EOF
 
-    cat > "${SCRIPT_DIR}/vpn-down.sh" << 'EOF'
+    cat > "${SCRIPT_DIR}/vpn-cgts-down.sh" << 'EOF'
 #!/bin/bash
 VPN_CONNECTION_NAME="wireguard-vpn"
 if [ "$EUID" -ne 0 ]; then
@@ -221,16 +221,16 @@ nmcli connection down "$VPN_CONNECTION_NAME"
 echo "VPN desactivada"
 EOF
 
-    chmod +x "${SCRIPT_DIR}/vpn-up.sh"
-    chmod +x "${SCRIPT_DIR}/vpn-down.sh"
+    chmod +x "${SCRIPT_DIR}/vpn-cgts-up.sh"
+    chmod +x "${SCRIPT_DIR}/vpn-cgts-down.sh"
     
     # Crear enlaces simbólicos en /usr/local/bin
-    ln -sf "${SCRIPT_DIR}/vpn-up.sh" /usr/local/bin/vpn-up
-    ln -sf "${SCRIPT_DIR}/vpn-down.sh" /usr/local/bin/vpn-down
+    ln -sf "${SCRIPT_DIR}/vpn-cgts-up.sh" /usr/local/bin/vpn-cgts-up
+    ln -sf "${SCRIPT_DIR}/vpn-cgts-down.sh" /usr/local/bin/vpn-cgts-down
     
     log_info "Enlaces simbólicos creados:"
-    log_info "  - vpn-up: sudo vpn-up"
-    log_info "  - vpn-down: sudo vpn-down"
+    log_info "  - vpn-cgts-up: sudo vpn-cgts-up"
+    log_info "  - vpn-cgts-down: sudo vpn-cgts-down"
 }
 
 # Función para mostrar ayuda
@@ -245,7 +245,7 @@ Comandos:
   down                      Desactiva la conexión VPN
   status                    Muestra el estado de la VPN
   autoconnect enable|disable Habilita/deshabilita la autoconexión
-  create-symlinks           Crea enlaces simbólicos vpn-up y vpn-down
+  create-symlinks           Crea enlaces simbólicos vpn-cgts-up y vpn-cgts-down
   help                      Muestra esta ayuda
 
 Ejemplos:
@@ -260,8 +260,8 @@ Ejemplos:
   sudo $0 status
   
   # Usando enlaces simbólicos
-  sudo vpn-up
-  sudo vpn-down
+  sudo vpn-cgts-up
+  sudo vpn-cgts-down
   
   # Autoconexión
   sudo $0 autoconnect disable
